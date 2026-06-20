@@ -12,7 +12,7 @@ public class CharacterMover : MonoBehaviour
     [SerializeField] private float _runSpeed = 5.0f;
     [SerializeField] private float _sprintSpeed = 9.0f;
     [SerializeField] private float _aimWalkingSpeed = 2.0f;
-    [SerializeField] private float _rotationSpeed = 180.0f;
+    [SerializeField] private float _rotationSpeed = 15.0f;
 
     private CharacterController _characterController;
 
@@ -49,6 +49,11 @@ public class CharacterMover : MonoBehaviour
     }
 
     private void Update()
+    {
+        Move();
+    }
+
+    private void Move()
     {
         Vector3 forward = _characterCamera.transform.forward;
         Vector3 right = _characterCamera.transform.right;
