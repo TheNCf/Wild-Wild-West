@@ -2529,9 +2529,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterCamera: {fileID: 963194227}
-  _runSpeed: 5
-  _sprintSpeed: 9
-  _aimWalkingSpeed: 2
+  _animator: {fileID: 3977550725019143546}
+  _runSpeed: 3
+  _sprintSpeed: 6
+  _aimWalkingSpeed: 1
   _rotationSpeed: 15
 --- !u!143 &7681141190595481020
 CharacterController:
