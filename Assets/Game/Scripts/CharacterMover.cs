@@ -23,6 +23,7 @@ public class CharacterMover : MonoBehaviour
     private bool _canMove;
     private bool _isSprinting = false;
     private bool _isWalking = false;
+    private bool _isAiming = false;
 
     private float _currentSpeed = 0f;
 
@@ -41,6 +42,8 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.SprintToggle.started += OnSprintToggle;
         _playerInput.Character.SprintToggle.canceled += OnSprintToggle;
         _playerInput.Character.WalkToggle.started += OnWalkToggle;
+        _playerInput.Character.Aim.started += OnAim;
+        _playerInput.Character.Aim.canceled += OnAim;
     }
 
     private void OnDisable()
@@ -52,6 +55,8 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.SprintToggle.started -= OnSprintToggle;
         _playerInput.Character.SprintToggle.canceled -= OnSprintToggle;
         _playerInput.Character.WalkToggle.started -= OnWalkToggle;
+        _playerInput.Character.Aim.started -= OnAim;
+        _playerInput.Character.Aim.canceled -= OnAim;
     }
 
     private void Update()
@@ -62,7 +67,6 @@ public class CharacterMover : MonoBehaviour
     public void SetCanMove()
     {
         _canMove = true;
-        Debug.Log(111);
     }
 
     public void SetCantMove()
@@ -90,7 +94,7 @@ public class CharacterMover : MonoBehaviour
         {
             desiredSpeed = _isSprinting ? _sprintSpeed : _runSpeed;
 
-            if (_isWalking)
+            if (_isWalking || _isAiming)
                 desiredSpeed = _aimWalkingSpeed;
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
@@ -107,6 +111,9 @@ public class CharacterMover : MonoBehaviour
 
         _animator.SetFloat(CharacterAnimatorData.Params.Speed, _currentSpeed);
         _animator.SetBool(CharacterAnimatorData.Params.NoInput, _noInput);
+        _animator.SetFloat(CharacterAnimatorData.Params.InputX, _inputDirection.x);
+        _animator.SetFloat(CharacterAnimatorData.Params.InputY, _inputDirection.y);
+        _animator.SetBool(CharacterAnimatorData.Params.IsAiming, _isAiming);
     }
 
     private void OnMoved(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -122,5 +129,11 @@ public class CharacterMover : MonoBehaviour
     private void OnWalkToggle(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         _isWalking = !_isWalking;
+    }
+
+    private void OnAim(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        _isAiming = context.ReadValueAsButton();
+        Debug.Log(_isAiming);
     }
 }
