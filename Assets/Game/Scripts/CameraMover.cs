@@ -9,11 +9,13 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private float _mouseSensivity = 0.1f;
     [SerializeField] private float _zoomSensivity = 0.1f;
     [SerializeField] private float _smoothTime = 3.0f;
+    [SerializeField] private float _verticalAngleClamp = 85.0f;
     [SerializeField] private Vector3 _cameraOffset;
     [SerializeField] private AnimationCurve _zoomAnimationCurve;
 
     private PlayerInput _input;
 
+    private float _currentVerticalAngle = 0;
     private float _zoomValue = 0.5f;
 
     private Vector3 _cameraTargetPosition;
@@ -58,9 +60,12 @@ public class CameraMover : MonoBehaviour
     private void Rotate(InputAction.CallbackContext context)
     {
         Vector2 mouseDelta = context.ReadValue<Vector2>() * _mouseSensivity * Time.deltaTime;
-        transform.Rotate(-mouseDelta.y, mouseDelta.x, 0);
+        transform.Rotate(0, mouseDelta.x, 0);
+        _currentVerticalAngle -= mouseDelta.y;
+        _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle, -_verticalAngleClamp, _verticalAngleClamp);
         Vector3 newRotation = transform.localEulerAngles;
         newRotation.z = 0;
+        newRotation.x = _currentVerticalAngle;
         transform.localEulerAngles = newRotation;
     }
 

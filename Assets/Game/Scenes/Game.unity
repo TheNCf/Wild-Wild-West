@@ -172,6 +172,7 @@ MonoBehaviour:
   _mouseSensivity: 30
   _zoomSensivity: 0.1
   _smoothTime: 3
+  _verticalAngleClamp: 80
   _cameraOffset: {x: 0.2, y: 1, z: 0}
   _zoomAnimationCurve:
     serializedVersion: 2
@@ -2328,7 +2329,7 @@ Transform:
   m_GameObject: {fileID: 7681141190595481018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.0536394, y: 0, z: -2.1338854}
+  m_LocalPosition: {x: 0, y: 0, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2533,6 +2534,7 @@ MonoBehaviour:
   _runSpeed: 3
   _sprintSpeed: 6
   _aimWalkingSpeed: 1
+  _speedSmoothCoef: 5
   _rotationSpeed: 15
 --- !u!143 &7681141190595481020
 CharacterController:

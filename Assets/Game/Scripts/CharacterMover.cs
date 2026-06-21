@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -7,9 +8,10 @@ public class CharacterMover : MonoBehaviour
     [SerializeField] private Animator _animator;
     [Space(10)]
 
-    [SerializeField] private float _runSpeed = 5.0f;
-    [SerializeField] private float _sprintSpeed = 9.0f;
-    [SerializeField] private float _aimWalkingSpeed = 2.0f;
+    [SerializeField] private float _runSpeed = 3.0f;
+    [SerializeField] private float _sprintSpeed = 6.0f;
+    [SerializeField] private float _aimWalkingSpeed = 1.0f;
+    [SerializeField] private float _speedSmoothCoef = 5.0f;
     [SerializeField] private float _rotationSpeed = 15.0f;
 
     private CharacterController _characterController;
@@ -20,6 +22,7 @@ public class CharacterMover : MonoBehaviour
 
     private bool _canMove;
     private bool _isSprinting = false;
+    private bool _isWalking = false;
 
     private float _currentSpeed = 0f;
 
@@ -37,6 +40,7 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.Move.canceled += OnMoved;
         _playerInput.Character.SprintToggle.started += OnSprintToggle;
         _playerInput.Character.SprintToggle.canceled += OnSprintToggle;
+        _playerInput.Character.WalkToggle.started += OnWalkToggle;
     }
 
     private void OnDisable()
@@ -47,6 +51,7 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.Move.canceled -= OnMoved;
         _playerInput.Character.SprintToggle.started -= OnSprintToggle;
         _playerInput.Character.SprintToggle.canceled -= OnSprintToggle;
+        _playerInput.Character.WalkToggle.started -= OnWalkToggle;
     }
 
     private void Update()
@@ -84,6 +89,10 @@ public class CharacterMover : MonoBehaviour
         if (_noInput == false)
         {
             desiredSpeed = _isSprinting ? _sprintSpeed : _runSpeed;
+
+            if (_isWalking)
+                desiredSpeed = _aimWalkingSpeed;
+
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
         }
@@ -94,7 +103,7 @@ public class CharacterMover : MonoBehaviour
             _characterController.Move(movement);
         }
 
-        _currentSpeed = Mathf.Lerp(_currentSpeed, desiredSpeed, Time.deltaTime * 1);
+        _currentSpeed = Mathf.Lerp(_currentSpeed, desiredSpeed, Time.deltaTime * _speedSmoothCoef);
 
         _animator.SetFloat(CharacterAnimatorData.Params.Speed, _currentSpeed);
         _animator.SetBool(CharacterAnimatorData.Params.NoInput, _noInput);
@@ -108,5 +117,10 @@ public class CharacterMover : MonoBehaviour
     private void OnSprintToggle(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         _isSprinting = context.ReadValueAsButton();
+    }
+
+    private void OnWalkToggle(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        _isWalking = !_isWalking;
     }
 }
