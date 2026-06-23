@@ -11,5 +11,6 @@ public static class CharacterAnimatorData
         public static readonly int InputX = Animator.StringToHash(nameof(InputX));
         public static readonly int InputY = Animator.StringToHash(nameof(InputY));
         public static readonly int IsAiming = Animator.StringToHash(nameof(IsAiming));
+        public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
     }
 }

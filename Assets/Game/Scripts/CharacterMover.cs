@@ -114,6 +114,7 @@ public class CharacterMover : MonoBehaviour
         _animator.SetFloat(CharacterAnimatorData.Params.InputX, _inputDirection.x);
         _animator.SetFloat(CharacterAnimatorData.Params.InputY, _inputDirection.y);
         _animator.SetBool(CharacterAnimatorData.Params.IsAiming, _isAiming);
+        _animator.SetBool(CharacterAnimatorData.Params.IsWalking, _isWalking);
     }
 
     private void OnMoved(UnityEngine.InputSystem.InputAction.CallbackContext context)
