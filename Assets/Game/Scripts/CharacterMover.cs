@@ -26,6 +26,8 @@ public class CharacterMover : MonoBehaviour
     private bool _isAiming = false;
 
     private float _currentSpeed = 0f;
+    private float _smoothedInputX = 0f;
+    private float _smoothedInputY = 0f;
 
     private void Awake()
     {
@@ -97,7 +99,7 @@ public class CharacterMover : MonoBehaviour
             if (_isWalking || _isAiming)
                 desiredSpeed = _aimWalkingSpeed;
 
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            Quaternion targetRotation = _isAiming ? Quaternion.LookRotation(forward) : Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
         }
 
@@ -108,11 +110,13 @@ public class CharacterMover : MonoBehaviour
         }
 
         _currentSpeed = Mathf.Lerp(_currentSpeed, desiredSpeed, Time.deltaTime * _speedSmoothCoef);
+        _smoothedInputX = Mathf.Lerp(_smoothedInputX, _inputDirection.x, Time.deltaTime * _speedSmoothCoef);
+        _smoothedInputY = Mathf.Lerp(_smoothedInputY, _inputDirection.y, Time.deltaTime * _speedSmoothCoef);
 
         _animator.SetFloat(CharacterAnimatorData.Params.Speed, _currentSpeed);
         _animator.SetBool(CharacterAnimatorData.Params.NoInput, _noInput);
-        _animator.SetFloat(CharacterAnimatorData.Params.InputX, _inputDirection.x);
-        _animator.SetFloat(CharacterAnimatorData.Params.InputY, _inputDirection.y);
+        _animator.SetFloat(CharacterAnimatorData.Params.InputX, _smoothedInputX);
+        _animator.SetFloat(CharacterAnimatorData.Params.InputY, _smoothedInputY);
         _animator.SetBool(CharacterAnimatorData.Params.IsAiming, _isAiming);
         _animator.SetBool(CharacterAnimatorData.Params.IsWalking, _isWalking);
     }
