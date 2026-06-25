@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMover : MonoBehaviour
@@ -13,6 +14,13 @@ public class CharacterMover : MonoBehaviour
     [SerializeField] private float _aimWalkingSpeed = 1.0f;
     [SerializeField] private float _speedSmoothCoef = 5.0f;
     [SerializeField] private float _rotationSpeed = 15.0f;
+
+    [Header("Smoothing settings")]
+    [Range(0, 1)] private float _aimWeight = 1f;
+    [SerializeField] private float _bodyWeight = 0.8f;
+    [SerializeField] private float _headWeight = 1f;
+    [SerializeField] private float _eyesWeight = 1f;
+    [SerializeField] private float _clampWeight = 0.5f;
 
     private CharacterController _characterController;
 
@@ -64,6 +72,23 @@ public class CharacterMover : MonoBehaviour
     private void Update()
     {
         Move();
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (_isAiming == false)
+            return;
+
+        if (_aimWeight > 0)
+        {
+            _animator.SetLookAtWeight(_aimWeight, _bodyWeight, _headWeight, _eyesWeight, _clampWeight);
+
+            _animator.SetLookAtPosition(_characterCamera.transform.forward * 100 + _characterCamera.transform.position);
+        }
+        else
+        {
+            _animator.SetLookAtWeight(0);
+        }
     }
 
     public void SetCanMove()
