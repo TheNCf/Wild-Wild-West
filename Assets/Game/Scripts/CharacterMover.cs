@@ -89,6 +89,8 @@ public class CharacterMover : MonoBehaviour
         {
             _animator.SetLookAtWeight(0);
         }
+
+        _canMove = true;
     }
 
     public void SetCanMove()
@@ -164,6 +166,5 @@ public class CharacterMover : MonoBehaviour
     private void OnAim(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         _isAiming = context.ReadValueAsButton();
-        Debug.Log(_isAiming);
     }
 }
