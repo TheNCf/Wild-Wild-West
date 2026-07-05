@@ -79,11 +79,18 @@ public class CharacterMover : MonoBehaviour
         if (_isAiming == false)
             return;
 
+        Ray ray = _characterCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        Physics.Raycast(ray, out raycastHit);
+
         if (_aimWeight > 0)
         {
             _animator.SetLookAtWeight(_aimWeight, _bodyWeight, _headWeight, _eyesWeight, _clampWeight);
 
-            _animator.SetLookAtPosition(_characterCamera.transform.forward * 100 + _characterCamera.transform.position);
+            if (Equals(raycastHit, new RaycastHit()))
+                _animator.SetLookAtPosition(_characterCamera.transform.forward * 100 + _characterCamera.transform.position);
+            else
+                _animator.SetLookAtPosition(raycastHit.point - Vector3.up * raycastHit.distance / 4);
         }
         else
         {
