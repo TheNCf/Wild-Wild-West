@@ -7,13 +7,18 @@ public class CharacterMover : MonoBehaviour
 {
     [SerializeField] private Camera _characterCamera;
     [SerializeField] private Animator _animator;
-    [Space(10)]
 
+    [Space(10)]
     [SerializeField] private float _runSpeed = 3.0f;
     [SerializeField] private float _sprintSpeed = 6.0f;
     [SerializeField] private float _aimWalkingSpeed = 1.0f;
     [SerializeField] private float _speedSmoothCoef = 5.0f;
     [SerializeField] private float _rotationSpeed = 15.0f;
+
+    [Space(10)]
+    [SerializeField] private Transform _aimOrigin;
+    [SerializeField] private float _aimEndPointForwardDistance = 100.0f;
+    [SerializeField] private float _aimEndPointVerticalDistance = -30.0f;
 
     [Header("Smoothing settings")]
     [Range(0, 1)] private float _aimWeight = 1f;
@@ -79,18 +84,10 @@ public class CharacterMover : MonoBehaviour
         if (_isAiming == false)
             return;
 
-        Ray ray = _characterCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit raycastHit;
-        Physics.Raycast(ray, out raycastHit);
-
         if (_aimWeight > 0)
         {
             _animator.SetLookAtWeight(_aimWeight, _bodyWeight, _headWeight, _eyesWeight, _clampWeight);
-
-            if (Equals(raycastHit, new RaycastHit()))
-                _animator.SetLookAtPosition(_characterCamera.transform.forward * 100 + _characterCamera.transform.position);
-            else
-                _animator.SetLookAtPosition(raycastHit.point - Vector3.up * raycastHit.distance / 4);
+            _animator.SetLookAtPosition(_characterCamera.transform.forward * _aimEndPointForwardDistance + _aimOrigin.position + Vector3.up * _aimEndPointVerticalDistance);
         }
         else
         {

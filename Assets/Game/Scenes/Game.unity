@@ -9886,7 +9886,7 @@ GameObject:
   - component: {fileID: 7681141190595481020}
   - component: {fileID: 7681141190595481019}
   - component: {fileID: 7681141190595481022}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9912,6 +9912,10 @@ MonoBehaviour:
   _aimWalkingSpeed: 1
   _speedSmoothCoef: 5
   _rotationSpeed: 15
+  _aimLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  _aimOrigin: {fileID: 6080712895797526622}
   _bodyWeight: 1
   _headWeight: 1
   _eyesWeight: 1
