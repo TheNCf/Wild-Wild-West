@@ -6425,6 +6425,7 @@ MonoBehaviour:
   - {fileID: 971531153}
   _scale: 1
   _distanceFromCenter: 8
+  _color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1709669234
 PrefabInstance:
   m_ObjectHideFlags: 0
