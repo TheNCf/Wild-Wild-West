@@ -24,6 +24,8 @@ public class CursorStateChanger : MonoBehaviour
 
         if (_isLockedOnStart)
             Cursor.lockState = CursorLockMode.Locked;
+
+        _crosshairCanvas.enabled = _isAiming;
     }
 
     private void Update()
