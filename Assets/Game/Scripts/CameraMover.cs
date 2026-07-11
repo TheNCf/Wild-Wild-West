@@ -15,6 +15,7 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private Vector3 _cameraOffset;
     [SerializeField] private Vector3 _aimingCameraOffset;
     [SerializeField] private AnimationCurve _zoomAnimationCurve;
+    [SerializeField] private LayerMask _collisionLayerMask;
 
     private PlayerInput _playerInput;
 
@@ -25,7 +26,7 @@ public class CameraMover : MonoBehaviour
     private float _currentZoom = 0.5f;
     private Vector3 _currentOffset = Vector3.zero;
 
-    private Vector3 _cameraTargetPosition;
+    private Vector3 cameraTargetPosition;
 
     private void Awake()
     {
@@ -56,6 +57,7 @@ public class CameraMover : MonoBehaviour
     {
         Vector3 desiredOffset = _isAiming ? _aimingCameraOffset : _cameraOffset;
         _currentOffset = Vector3.Slerp(_currentOffset, desiredOffset, Time.deltaTime * _smoothTime);
+        
         transform.position = _target.position + _target.TransformDirection(_currentOffset);
         float desiredZoom = _isAiming ? _aimingZoomValue : _zoomValue;
         _currentZoom = Mathf.Lerp(_currentZoom, desiredZoom, Time.deltaTime * _smoothTime);
@@ -83,8 +85,15 @@ public class CameraMover : MonoBehaviour
 
     private void SetZoom(float zoomValue)
     {
-        _cameraTargetPosition = transform.position - transform.forward * _zoomAnimationCurve.Evaluate(zoomValue);
-        _camera.transform.position = _cameraTargetPosition;
+        Vector3 cameraTargetPosition = new Vector3();
+        Ray ray = new Ray(transform.position, -_camera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, _zoomAnimationCurve.Evaluate(_currentZoom), _collisionLayerMask))
+            cameraTargetPosition = hitInfo.point;
+        else
+            cameraTargetPosition = transform.position - transform.forward * _zoomAnimationCurve.Evaluate(zoomValue);
+
+        _camera.transform.position = cameraTargetPosition;
     }
 
     private void OnAim(InputAction.CallbackContext context)
