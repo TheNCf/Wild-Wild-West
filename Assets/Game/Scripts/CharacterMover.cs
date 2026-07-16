@@ -42,6 +42,8 @@ public class CharacterMover : MonoBehaviour
     private float _smoothedInputX = 0f;
     private float _smoothedInputY = 0f;
 
+    public bool IsAiming => _isAiming;
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
@@ -59,7 +61,6 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.WalkToggle.started += OnWalkToggle;
         _playerInput.Character.Aim.started += OnAim;
         _playerInput.Character.Aim.canceled += OnAim;
-        _playerInput.Character.Shoot.performed += OnShoot;
     }
 
     private void OnDisable()
@@ -73,7 +74,6 @@ public class CharacterMover : MonoBehaviour
         _playerInput.Character.WalkToggle.started -= OnWalkToggle;
         _playerInput.Character.Aim.started -= OnAim;
         _playerInput.Character.Aim.canceled -= OnAim;
-        _playerInput.Character.Shoot.performed -= OnShoot;
     }
 
     private void Update()
@@ -172,11 +172,5 @@ public class CharacterMover : MonoBehaviour
     private void OnAim(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         _isAiming = context.ReadValueAsButton();
-    }
-
-    private void OnShoot(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        if (_isAiming)
-            _animator.SetTrigger(CharacterAnimatorData.Params.Shoot);
     }
 }
