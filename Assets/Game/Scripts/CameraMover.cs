@@ -26,8 +26,6 @@ public class CameraMover : MonoBehaviour
     private float _currentZoom = 0.5f;
     private Vector3 _currentOffset = Vector3.zero;
 
-    private Vector3 cameraTargetPosition;
-
     private void Awake()
     {
         _playerInput = new PlayerInput();
