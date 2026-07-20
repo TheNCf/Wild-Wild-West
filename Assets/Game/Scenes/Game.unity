@@ -2239,6 +2239,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1aed8ada79e4d4e99084037c3b094a, type: 3}
+--- !u!1 &637354850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637354852}
+  - component: {fileID: 637354851}
+  m_Layer: 0
+  m_Name: Enemy Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &637354851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637354850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a8775458e21d743a91b141ac3e6a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabToSpawn: {fileID: 4340293812721656300, guid: 1cc16e755226f614b96931625b41ff17, type: 3}
+  PoolSizeAtStart: 25
+  _spawnPoints: []
+--- !u!4 &637354852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637354850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.79842687, y: 0.6075523, z: -8.731985}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &647483193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2402,12 +2449,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653235483}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 801650717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676383441
 GameObject:
@@ -3139,6 +3186,7 @@ Transform:
   - {fileID: 1426472527}
   - {fileID: 324156392}
   - {fileID: 1275068281}
+  - {fileID: 653235487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &806446563
@@ -6410,6 +6458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1700810210}
   - component: {fileID: 1700810211}
+  - component: {fileID: 1700810212}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -6460,6 +6509,18 @@ MonoBehaviour:
   _scale: 1
   _distanceFromCenter: 8
   _color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1700810212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700810209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7f2f7fa5d4f1444b712175227fd707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1709669234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10599,9 +10660,9 @@ SceneRoots:
   - {fileID: 533787012}
   - {fileID: 705507995}
   - {fileID: 7049036785856337664}
-  - {fileID: 653235487}
   - {fileID: 287379639}
   - {fileID: 801650717}
   - {fileID: 467733532}
   - {fileID: 553296969}
   - {fileID: 9045851024400088186}
+  - {fileID: 637354852}
