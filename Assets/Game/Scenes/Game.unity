@@ -6521,6 +6521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7f2f7fa5d4f1444b712175227fd707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _customizer: {fileID: 1700810211}
+  _recoilRegenerationSpeed: 1
 --- !u!1001 &1709669234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10193,7 +10195,9 @@ MonoBehaviour:
   _characterMover: {fileID: 7681141190595481019}
   _ammoStorage: {fileID: 7681141190595481023}
   _characterAnimator: {fileID: 3977550725019143546}
+  _recoilHandler: {fileID: 1700810212}
   _damage: 2
+  _recoil: 10
 --- !u!4 &7682213457707748366
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,21 @@ public class CrosshairCustomizer : MonoBehaviour
     [SerializeField] private float _distanceFromCenter = 8.0f;
     [SerializeField] private Color _color = Color.white;
 
+    public float DistanceFromCenter
+    {
+        get => _distanceFromCenter;
+
+        set
+        {
+            _distanceFromCenter = value;
+
+            if (_crosshairParts.Count > 0)
+                foreach (RectTransform crosshairPart in _crosshairParts)
+                    if (crosshairPart != null)
+                        crosshairPart.anchoredPosition = crosshairPart.anchoredPosition.normalized * _distanceFromCenter;
+        }
+    }
+
     private void OnValidate()
     {
         transform.localScale = Vector3.one * _scale;

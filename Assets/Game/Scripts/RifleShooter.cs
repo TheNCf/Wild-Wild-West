@@ -13,8 +13,10 @@ public class RifleShooter : MonoBehaviour
     [SerializeField] private CharacterMover _characterMover;
     [SerializeField] private AmmoStorage _ammoStorage;
     [SerializeField] private Animator _characterAnimator;
+    [SerializeField] private CrosshairRecoilHandler _recoilHandler;
 
     [SerializeField] private float _damage = 1f;
+    [SerializeField] private float _recoil = 10.0f;
 
     private PlayerInput _playerInput;
 
@@ -41,6 +43,7 @@ public class RifleShooter : MonoBehaviour
             return;
 
         _characterAnimator.SetTrigger(CharacterAnimatorData.Params.Shoot);
+        _recoilHandler.AddRecoil(_recoil);
 
         Ray ray = new Ray(_firePoint.position, _firePoint.forward);
 
@@ -53,7 +56,7 @@ public class RifleShooter : MonoBehaviour
         damageable.TakeDamage(_damage);
     }
 
-    private void OnShoot(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void OnShoot(InputAction.CallbackContext context)
     {
         if (_characterMover.IsAiming)
             Shoot();
