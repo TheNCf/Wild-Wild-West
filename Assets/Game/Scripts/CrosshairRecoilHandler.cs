@@ -8,6 +8,7 @@ public class CrosshairRecoilHandler : MonoBehaviour
     [SerializeField] private CrosshairCustomizer _customizer;
 
     [SerializeField] private float _recoilRegenerationSpeed = 1.0f;
+    [SerializeField] private float _maxRecoil = 30.0f;
 
     private float _startCrosshairSize;
     private float _currentSize;
@@ -27,6 +28,6 @@ public class CrosshairRecoilHandler : MonoBehaviour
 
     public void AddRecoil(float amount)
     {
-        _currentSize += amount;
+        _currentSize = Mathf.Clamp(_currentSize + amount, _startCrosshairSize, _maxRecoil);
     }
 }

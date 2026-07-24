@@ -18,6 +18,10 @@ public class RifleShooter : MonoBehaviour
     [SerializeField] private float _damage = 1f;
     [SerializeField] private float _recoil = 10.0f;
 
+    [Space(10)]
+    [Header("Debug")]
+    [SerializeField] private bool _infiniteAmmo = false;
+
     private PlayerInput _playerInput;
 
     private void Awake()
@@ -39,8 +43,9 @@ public class RifleShooter : MonoBehaviour
 
     public void Shoot()
     {
-        if (_ammoStorage.TryTakeBullet() == false)
-            return;
+        if (_infiniteAmmo == false)
+            if (_ammoStorage.TryTakeBullet() == false)
+                return;
 
         _characterAnimator.SetTrigger(CharacterAnimatorData.Params.Shoot);
         _recoilHandler.AddRecoil(_recoil);
