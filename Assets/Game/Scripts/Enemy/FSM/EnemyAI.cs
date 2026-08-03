@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float _attackRange = 10f;
     [SerializeField] private Component _targetComponent;
+    [SerializeField] private Transform _shootPoint;
 
     private ITargetable _target;
     private IState _currentState;
@@ -56,8 +57,8 @@ public class EnemyAI : MonoBehaviour
     {
         _states = new Dictionary<Type, IState>
         {
-            { typeof(RunState), new RunState(this, _attackRange) },
-            { typeof(ShootState), new ShootState(this, _attackRange) }
+            { typeof(RunState), new RunState(this, _attackRange, _shootPoint) },
+            { typeof(ShootState), new ShootState(this, _attackRange, _shootPoint) }
         };
 
         ChangeState<RunState>();

@@ -5,16 +5,18 @@ public class ShootState : IState
 {
     private readonly EnemyAI _enemy;
     private readonly float _attackRange;
+    private readonly Transform _shootPoint;
 
     public List<Transition> _transitions = new List<Transition>();
 
-    public ShootState(EnemyAI enemy, float attackRange)
+    public ShootState(EnemyAI enemy, float attackRange, Transform shootPoint)
     {
         _enemy = enemy;
         _attackRange = attackRange;
+        _shootPoint = shootPoint;
 
         _transitions.Add(new Transition(
-            condition: () => _enemy.Target == null || Vector3.Distance(_enemy.transform.position, _enemy.Target.Position) > _attackRange,
+            condition: () => CheckTransitionToRun(),
             targetState: typeof(RunState)
         ));
     }
@@ -38,4 +40,20 @@ public class ShootState : IState
     }
 
     public void Exit() { }
+
+    private bool CheckTransitionToRun()
+    {
+        if (_enemy.Target == null)
+            return true;
+
+        Ray ray = new Ray(_shootPoint.position, _enemy.Target.Position - _shootPoint.position);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, _attackRange) == false)
+            return true;
+
+        if (hitInfo.collider.TryGetComponent(out CharacterHealth _) == false)
+            return true;
+
+        return false;
+    }
 }

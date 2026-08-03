@@ -10107,6 +10107,7 @@ GameObject:
   - component: {fileID: 7681141190595481024}
   - component: {fileID: 7681141190595481023}
   - component: {fileID: 7681141190595481025}
+  - component: {fileID: 7681141190595481026}
   m_Layer: 3
   m_Name: Player Character
   m_TagString: Untagged
@@ -10245,6 +10246,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff8715f870d58740a7c56c04ebe906a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7681141190595481026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681141190595481018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e8b1f7b9d501c4794a52f6f4c8ccf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!4 &7682213457707748366
 Transform:
   m_ObjectHideFlags: 0
@@ -10615,6 +10629,10 @@ PrefabInstance:
       propertyPath: _targetComponent
       value: 
       objectReference: {fileID: 7681141190595481025}
+    - target: {fileID: 6176780317779800308, guid: 1cc16e755226f614b96931625b41ff17, type: 3}
+      propertyPath: m_Speed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6982055111342985802, guid: 1cc16e755226f614b96931625b41ff17, type: 3}
       propertyPath: m_Name
       value: Enemy
