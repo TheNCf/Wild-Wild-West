@@ -46,7 +46,7 @@ public class ShootState : IState
         if (_enemy.Target == null)
             return true;
 
-        Ray ray = new Ray(_shootPoint.position, _enemy.Target.Position - _shootPoint.position);
+        Ray ray = new Ray(_shootPoint.position, _enemy.Target.Position - _shootPoint.position + Vector3.up);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, _attackRange) == false)
             return true;
