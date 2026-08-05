@@ -10629,10 +10629,6 @@ PrefabInstance:
       propertyPath: _targetComponent
       value: 
       objectReference: {fileID: 7681141190595481025}
-    - target: {fileID: 6176780317779800308, guid: 1cc16e755226f614b96931625b41ff17, type: 3}
-      propertyPath: m_Speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6982055111342985802, guid: 1cc16e755226f614b96931625b41ff17, type: 3}
       propertyPath: m_Name
       value: Enemy
