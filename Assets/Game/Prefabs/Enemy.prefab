@@ -1939,6 +1939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b2347108d11d347be1d75ad72a643c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackRange: 10
+  _animator: {fileID: 2801577266068774973}
   _targetComponent: {fileID: 0}
+  _attackRange: 10
   _shootPoint: {fileID: 3942651167009050645}

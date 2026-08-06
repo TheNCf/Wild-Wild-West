@@ -6,14 +6,16 @@ public class ShootState : IState
     private readonly EnemyAI _enemy;
     private readonly float _attackRange;
     private readonly Transform _shootPoint;
+    private Animator _animator;
 
     public List<Transition> _transitions = new List<Transition>();
 
-    public ShootState(EnemyAI enemy, float attackRange, Transform shootPoint)
+    public ShootState(EnemyAI enemy, float attackRange, Transform shootPoint, Animator animator)
     {
         _enemy = enemy;
         _attackRange = attackRange;
         _shootPoint = shootPoint;
+        _animator = animator;
 
         _transitions.Add(new Transition(
             condition: () => CheckTransitionToRun(),
@@ -26,6 +28,7 @@ public class ShootState : IState
     public void Enter()
     {
         _enemy.Agent.isStopped = true;
+        _animator.SetBool(EnemyAnimatorData.Params.IsShooting, true);
     }
 
     public void Tick()
@@ -39,7 +42,10 @@ public class ShootState : IState
             _enemy.transform.rotation = Quaternion.Slerp(_enemy.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 5f);
     }
 
-    public void Exit() { }
+    public void Exit() 
+    { 
+        _animator.SetBool(EnemyAnimatorData.Params.IsShooting, false);
+    }
 
     private bool CheckTransitionToRun()
     {

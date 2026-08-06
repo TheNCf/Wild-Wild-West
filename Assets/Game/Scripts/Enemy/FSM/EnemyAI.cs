@@ -6,8 +6,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float _attackRange = 10f;
+    [SerializeField] private Animator _animator;
     [SerializeField] private Component _targetComponent;
+    [SerializeField] private float _attackRange = 10f;
     [SerializeField] private Transform _shootPoint;
 
     private ITargetable _target;
@@ -57,8 +58,8 @@ public class EnemyAI : MonoBehaviour
     {
         _states = new Dictionary<Type, IState>
         {
-            { typeof(RunState), new RunState(this, _attackRange, _shootPoint) },
-            { typeof(ShootState), new ShootState(this, _attackRange, _shootPoint) }
+            { typeof(RunState), new RunState(this, _attackRange, _shootPoint, _animator) },
+            { typeof(ShootState), new ShootState(this, _attackRange, _shootPoint, _animator) }
         };
 
         ChangeState<RunState>();

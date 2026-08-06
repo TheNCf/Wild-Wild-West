@@ -6,14 +6,16 @@ public class RunState : IState
     private readonly EnemyAI _enemy;
     private readonly float _attackRange;
     private readonly Transform _shootPoint;
+    private Animator _animator;
 
     private List<Transition> _transitions = new List<Transition>();
 
-    public RunState(EnemyAI enemy, float attackRange, Transform shootPoint)
+    public RunState(EnemyAI enemy, float attackRange, Transform shootPoint, Animator animator)
     {
         _enemy = enemy;
         _attackRange = attackRange;
         _shootPoint = shootPoint;
+        _animator = animator;
 
         _transitions.Add(new Transition(
             condition: () => CheckTransitionToShoot(),
@@ -33,6 +35,8 @@ public class RunState : IState
     {
         if (_enemy.Target != null)
             _enemy.Agent.SetDestination(_enemy.Target.Position);
+
+        _animator.SetFloat(EnemyAnimatorData.Params.Speed, _enemy.Agent.desiredVelocity.magnitude);
     }
 
     public void Exit()
